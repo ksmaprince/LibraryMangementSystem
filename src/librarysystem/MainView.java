@@ -29,7 +29,7 @@ public class MainView extends JFrame  implements LibWindow{
 	JMenu mnNewMenu_1,mnNewMenu_2;
 	
 	JMenuItem logout, addLibraryMember, checkOutBook, addBookCopy, addBook,
-	printCheckOutRecord;
+	printCheckOutRecord, editMember;
 	
 	private static LibWindow[] allWindows = { 
 			UIController.INSTANCE,
@@ -57,9 +57,7 @@ public class MainView extends JFrame  implements LibWindow{
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		//panel.setBackground(new Color(139, 0, 0));
-		//panel.setBounds(412, 29, 528, 257);
-		panel.setBackground(new Color(81, 184, 196));
+		panel.setBackground(new Color(91, 211, 226));
 		panel.setBounds(450, 30, 930, 657);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -110,15 +108,19 @@ public class MainView extends JFrame  implements LibWindow{
 		mnNewMenu_2 = new JMenu("Add");
 		menuBar.add(mnNewMenu_2);
 		
-		addLibraryMember = new JMenuItem("Add Library Member");
+		addLibraryMember = new JMenuItem("Add Member");
 		addLibraryMember.addActionListener(new AddLibraryMemberListener());
 		mnNewMenu_2.add(addLibraryMember);
+
+		editMember = new JMenuItem("Edit Member");
+		editMember.addActionListener(new EditMemberListener());
+		mnNewMenu_2.add(editMember);
 		
 		addBookCopy = new JMenuItem("Add Book Copy");
 		addBookCopy.addActionListener(new AddBookCopyListener());
 		mnNewMenu_2.add(addBookCopy);
 		
-		addBook = new JMenuItem("Add New Book");
+		addBook = new JMenuItem("Add Book");
 		addBook.addActionListener(new AddBookListener());
 		mnNewMenu_2.add(addBook);
 	}
@@ -183,6 +185,18 @@ public class MainView extends JFrame  implements LibWindow{
 			AddMemberWindow.INSTANCE.pack();
 			Util.centerFrameOnDesktop(AddMemberWindow.INSTANCE);
 			AddMemberWindow.INSTANCE.setVisible(true);
+		}
+
+	}
+
+	class EditMemberListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UIController.hideAllWindows();
+			EditMemberWindow.INSTANCE.init();
+			EditMemberWindow.INSTANCE.pack();
+			Util.centerFrameOnDesktop(EditMemberWindow.INSTANCE);
+			EditMemberWindow.INSTANCE.setVisible(true);
 		}
 
 	}

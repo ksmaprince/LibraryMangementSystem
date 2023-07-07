@@ -1,33 +1,21 @@
 package librarysystem;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import business.controller.ControllerFactory;
+import business.controller.ControllerType;
+import business.exception.InvalidMemberException;
+import business.model.Address;
+import business.model.LibraryMember;
+import business.usecase.IAddLibraryMember;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
-import business.controller.ControllerType;
-import business.model.Book;
-import business.usecase.IAddLibraryMember;
-import business.controller.ControllerFactory;
-import business.model.Address;
-import business.model.LibraryMember;
-import business.exception.InvalidMemberException;
-
-public class AddMemberWindow extends JFrame implements LibWindow {
+public class EditMemberWindow extends JFrame implements LibWindow {
 	private static final long serialVersionUID = 1L;
-	public static final AddMemberWindow INSTANCE = new AddMemberWindow();
+	public static final EditMemberWindow INSTANCE = new EditMemberWindow();
 	IAddLibraryMember addLibraryMemberUseCase = ControllerFactory.getController(ControllerType.LibraryMember);
 
 	private boolean isInitialized = false;
@@ -55,7 +43,7 @@ public class AddMemberWindow extends JFrame implements LibWindow {
 	private JLabel lblZipCode;
 	private JLabel lblState;
 
-	private AddMemberWindow() {
+	private EditMemberWindow() {
 	}
 
 	@Override
@@ -123,7 +111,7 @@ public class AddMemberWindow extends JFrame implements LibWindow {
 	public void defineTopPanel() {
 		this.topPanel = new JPanel();
 		topPanel.setBackground(new Color(81, 184, 196));
-		JLabel addMemberLabel = new JLabel("Add Library Member");
+		JLabel addMemberLabel = new JLabel("Edit Library Member");
 		Util.adjustLabelFont(addMemberLabel, Color.WHITE, true);
 		this.topPanel.setLayout(new FlowLayout(0));
 		this.topPanel.add(addMemberLabel);

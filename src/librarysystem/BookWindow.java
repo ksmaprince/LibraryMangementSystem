@@ -143,8 +143,9 @@ public class BookWindow extends JFrame implements LibWindow {
 
 	public void defineTopPanel() {
 		this.topPanel = new JPanel();
+		topPanel.setBackground(new Color(81, 184, 196));
 		JLabel AddBookLabel = new JLabel("Add New Book");
-		Util.adjustLabelFont(AddBookLabel, Color.BLACK, true);
+		Util.adjustLabelFont(AddBookLabel, Color.WHITE, true);
 		this.topPanel.setLayout(new FlowLayout(0));
 		this.topPanel.add(AddBookLabel);
 	}

@@ -1,17 +1,8 @@
 package librarysystem;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import business.controller.ControllerType;
@@ -61,25 +52,35 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
         panelCheckoutFields.setLayout(null);
         panelCheckoutFields.setSize(500,500);
 
-		this.setTitle("Checkout Book");
 		this.setMinimumSize(new Dimension(930, 657));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+		JPanel titlePanel = new JPanel();
+		JLabel title = new JLabel("Checkout Book");
+		Util.adjustLabelFont(title, Color.WHITE, true);
+		title.setLayout(new FlowLayout(0));
+		titlePanel.add(title);
+		titlePanel.setBackground(new Color(81, 184, 196));
+		titlePanel.setBounds(0, 0, 930, 30);
+
+		panelCheckoutFields.add(titlePanel);
+
 		JLabel lblISBN = new JLabel("ISBN");
-		lblISBN.setBounds(20, 20, 150, 20);
+		lblISBN.setBounds(20, 40, 150, 20);
 		txtISBN = new JTextField(10);
-		txtISBN.setBounds(110, 20, 150, 20);
+		txtISBN.setBounds(110, 40, 150, 20);
 		JLabel lblMemberID = new JLabel("Member ID");
-		lblMemberID.setBounds(20, 60, 150, 20);
+		lblMemberID.setBounds(20, 80, 150, 20);
 		txtMemberID = new JTextField(10);
-		txtMemberID.setBounds(110, 60, 150, 20);
+		txtMemberID.setBounds(110, 80, 150, 20);
 
 		JButton btnCheckout = new JButton("Checkout");
-		btnCheckout.setBounds(110, 100, 150, 20);
+		btnCheckout.setBounds(110, 120, 150, 20);
 		addCheckoutListener(btnCheckout);
 
         JButton btnBackToMain = new JButton("HOME");
-		btnBackToMain.setBounds(20, 150, 100, 20);
+		btnBackToMain.setBounds(20, 170, 100, 20);
         addBackButtonListener(btnBackToMain);
 
 //        JPanel pnlButtonSave = new JPanel();
@@ -98,7 +99,7 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
 		jt = new JTable(model);
 
 		JScrollPane sp = new JScrollPane(jt);
-		sp.setBounds(20, 200, 880, 400);
+		sp.setBounds(20, 220, 880, 380);
 		panelCheckoutFields.add(sp);
 
 		panelCheckoutFields.add(lblMemberID);
@@ -111,9 +112,9 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
 		panelCheckoutFields.add(btnBackToMain);
 
         
-        panelCheckoutFields.setBackground(new Color(244, 244, 244,180));
+        panelCheckoutFields.setBackground(new Color(174, 242, 250));
         panelCheckoutFields.setBounds(40, 49, 850, 600);
-		
+
 		this.add(panelCheckoutFields);
 
 	}

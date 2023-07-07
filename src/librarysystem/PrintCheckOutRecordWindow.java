@@ -1,8 +1,6 @@
 package librarysystem;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,13 +61,23 @@ public class PrintCheckOutRecordWindow extends JFrame implements LibWindow {
 
 		this.setMinimumSize(new Dimension(930, 657));
 
+		JPanel titlePanel = new JPanel();
+		JLabel title = new JLabel("Print Checkout Book");
+		Util.adjustLabelFont(title, Color.WHITE, true);
+		title.setLayout(new FlowLayout(0));
+		titlePanel.add(title);
+		titlePanel.setBackground(new Color(81, 184, 196));
+		titlePanel.setBounds(0, 0, 930, 30);
+
+		panelCheckoutFields.add(titlePanel);
+
 		JLabel lblMemberID = new JLabel("Member ID");
-		lblMemberID.setBounds(25, 45, 150, 20);
+		lblMemberID.setBounds(25, 65, 150, 20);
 		txtMemberID = new JTextField(10);
-		txtMemberID.setBounds(120, 45, 150, 20);
+		txtMemberID.setBounds(120, 65, 150, 20);
 
 		JButton btnSearch = new JButton("SEARCH");
-		btnSearch.setBounds(120, 75, 150, 20);
+		btnSearch.setBounds(120, 95, 150, 20);
 		addCheckIDListener(btnSearch);
 
 		JButton btnBackToMain = new JButton("HOME");
@@ -79,8 +87,8 @@ public class PrintCheckOutRecordWindow extends JFrame implements LibWindow {
 		JPanel pnlButtons = new JPanel();
 		pnlButtons.add(btnBackToMain);
 		pnlButtons.add(btnSearch);
-		pnlButtons.setBackground(new Color(255, 255, 255,180));
-		pnlButtons.setBounds(20, 40, 890, 35);
+		pnlButtons.setBackground(new Color(174, 242, 250));
+		pnlButtons.setBounds(20, 60, 890, 35);
 
 
 		DefaultTableModel model = new DefaultTableModel();
@@ -94,7 +102,7 @@ public class PrintCheckOutRecordWindow extends JFrame implements LibWindow {
 		jt = new JTable(model);
 
 		JScrollPane sp = new JScrollPane(jt);
-		sp.setBounds(20, 100, 890, 450);
+		sp.setBounds(20, 120, 890, 430);
 		panelCheckoutFields.add(sp);
 
 		// Print CheckoutRecord
@@ -104,7 +112,7 @@ public class PrintCheckOutRecordWindow extends JFrame implements LibWindow {
 
 		panelCheckoutFields.add(pnlButtons, BorderLayout.CENTER);
 
-		panelCheckoutFields.setBackground(new Color(244, 244, 244,180));
+		panelCheckoutFields.setBackground(new Color(174, 242, 250));
 		panelCheckoutFields.setBounds(0, 1, 930, 657);
 		getContentPane().add(panelCheckoutFields);
 

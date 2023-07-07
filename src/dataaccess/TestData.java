@@ -71,15 +71,9 @@ public class TestData {
 	}
 
 	public void libraryMemberData() {
-		LibraryMember libraryMember = new LibraryMember("0000", "Htain Lin", "Shwe", "111-222-3333", addresses.get(4));
+		LibraryMember libraryMember = new LibraryMember("0000", "John", "Smith", "111-222-3333", addresses.get(4));
 		members.add(libraryMember);
-		libraryMember = new LibraryMember("0001", "Han Tun", "Zaw", "123-456-7890", addresses.get(5));
-		members.add(libraryMember);
-
-		libraryMember = new LibraryMember("0002", "Carey", "Nyein", "999-999-9999", addresses.get(6));
-		members.add(libraryMember);
-
-		libraryMember = new LibraryMember("1004", "Toe Myint", "Aung", "000-000-0000", addresses.get(2));
+		libraryMember = new LibraryMember("0001", "Henry", "Lewis", "123-456-7890", addresses.get(5));
 		members.add(libraryMember);
 
 		DataAccessFacade.loadMemberMap(members);
