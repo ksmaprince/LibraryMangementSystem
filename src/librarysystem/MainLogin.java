@@ -52,7 +52,7 @@ public class MainLogin extends JFrame implements LibWindow{
 			MainView.INSTANCE.init();
 			Util.centerFrameOnDesktop(MainView.INSTANCE);
 			MainView.INSTANCE.setVisible(true);
-			MainView.INSTANCE.lblGreeting.setText("Welcome \n "+ user+ " !");
+			MainView.INSTANCE.lblGreeting.setText("Welcome "+ user+ " !");
 		} catch (LoginException e) {
 			e.printStackTrace();	
 			JOptionPane.showMessageDialog(this, "Login Failed");

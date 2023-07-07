@@ -249,39 +249,52 @@ public class BookWindow extends JFrame implements LibWindow {
 
 			try {
 				String isbn = txtISBN.getText().trim();
-				String title = txtTitle.getText().trim();
-				int maxCheckoutPeriod = (int) cmbMaxCheckOutLength.getSelectedItem();
+				List<Book> data2 = searchBookUseCase.getBookCollection();
+				boolean isExist=false;
+				for (Book bk1 : data2) {
+					if (isbn.equals(bk1.getIsbn())) {
+						JOptionPane.showMessageDialog(this, "Existing ISBN");
+						isExist=true;
+					}
+				}
+				if (isExist==false) {
+					String title = txtTitle.getText().trim();
+					int maxCheckoutPeriod = (int) cmbMaxCheckOutLength.getSelectedItem();
 
-				List<Author> selectedAuthors = new ArrayList<Author>();
+					List<Author> selectedAuthors = new ArrayList<Author>();
 
-				int noOfCopy = Integer.valueOf(txtNoOfCopy.getText());
+					int noOfCopy = Integer.valueOf(txtNoOfCopy.getText());
 
-				// Save data to dataaccess.storage
+					// Save data to dataaccess.storage
 
-				jCheckBoxs.forEach(box -> {
-					if (box.isSelected()) {
-						for (Author author : m_authors) {
-							if (box.getText().equals(author.getFullName())) {
-								selectedAuthors.add(author);
+					jCheckBoxs.forEach(box -> {
+						if (box.isSelected()) {
+							for (Author author : m_authors) {
+								if (box.getText().equals(author.getFullName())) {
+									selectedAuthors.add(author);
+								}
 							}
 						}
+
+					});
+
+					for (Author model : selectedAuthors) {
+						System.out.println(model.getFullName());
 					}
 
-				});
+					Book book = new Book(isbn, title, maxCheckoutPeriod, selectedAuthors);
+					System.out.println("Book : " + book.toString());
+					for (int i = 1; i <= noOfCopy; i++) {
+						book.addCopy();
+					}
 
-				for (Author model : selectedAuthors) {
-					System.out.println(model.getFullName());
+					addBookUseCase.addBook(book);
+					JOptionPane.showMessageDialog(this,
+							"The book " + txtTitle.getText().trim() + " has been added " + "to the collection!");
 				}
-
-				Book book = new Book(isbn, title, maxCheckoutPeriod, selectedAuthors);
-				System.out.println("Book : " + book.toString());
-				for (int i = 1; i <= noOfCopy; i++) {
-					book.addCopy();
-				}
-
-				addBookUseCase.addBook(book);
 
 				DefaultTableModel model = (DefaultTableModel) jt.getModel();
+
 				model.setRowCount(0); // clear data
 
 				// load books
@@ -304,8 +317,7 @@ public class BookWindow extends JFrame implements LibWindow {
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Save Failed!", JOptionPane.ERROR_MESSAGE);
 			}
-			JOptionPane.showMessageDialog(this,
-					"The book " + txtTitle.getText().trim() + " has been added " + "to the collection!");
+
 			clearData();
 
 			// load books
