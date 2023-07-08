@@ -7,7 +7,7 @@ public class ControllerFactory {
 	public static <T> T getController(ControllerType type) {
 		switch (type) {
 			case Login:
-				return (T) new LogInController();
+				return (T) new LoginController();
 			case Author:
 				return (T) new GetAuthorController();
 			case Book:

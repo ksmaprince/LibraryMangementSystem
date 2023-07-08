@@ -2,12 +2,13 @@ package business.controller;
 
 import business.usecase.IAddLibraryMember;
 import business.usecase.ICheckMember;
+import business.usecase.IEditLibraryMember;
 import dataaccess.DataAccessFacade;
 import business.model.LibraryMember;
 import business.exception.InvalidMemberException;
 import dataaccess.repository.child.LibraryMemberRepository;
 
-public class LibraryMemberController extends BaseController implements IAddLibraryMember, ICheckMember {
+public class LibraryMemberController extends BaseController implements IAddLibraryMember, IEditLibraryMember, ICheckMember {
 	LibraryMemberController() {
 	}
 
@@ -35,4 +36,9 @@ public class LibraryMemberController extends BaseController implements IAddLibra
 	}
 
 
+	@Override
+	public void editLibrary(LibraryMember member) throws InvalidMemberException {
+		// Implement Code Here
+
+	}
 }

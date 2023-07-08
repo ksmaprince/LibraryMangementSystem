@@ -7,8 +7,8 @@ import dataaccess.User;
 import business.exception.LoginException;
 import dataaccess.repository.child.UserRepository;
 
-public class LogInController extends BaseController implements ILogIn {
-	LogInController() {
+public class LoginController extends BaseController implements ILogIn {
+	LoginController() {
 	}
 
 	public static Auth currentAuth = null;
@@ -18,8 +18,9 @@ public class LogInController extends BaseController implements ILogIn {
 		UserRepository userRepo = new UserRepository(new DataAccessFacade());
 
 		User user = userRepo.login(id,password);
-		User.updateCurrentUser(user);
+		//User.updateCurrentUser(user);
 
+		//Get Authorization Type (LIBRARIAN, ADMIN, SUPER)
 		currentAuth = user.getAuthorization();
 		return currentAuth;
 

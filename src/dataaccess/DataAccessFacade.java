@@ -61,6 +61,11 @@ public class DataAccessFacade implements DataAccess {
 		saveToStorage(StorageType.MEMBERS, mems);
 	}
 
+	@Override
+	public void editMember(LibraryMember member) {
+		//Implement Code Here
+	}
+
 	public void saveNewBook(Book book) {
 		HashMap<String, Book> books = readBooksMap();
 		books.put(book.getIsbn(), book);

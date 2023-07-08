@@ -52,4 +52,11 @@ public class LibraryMemberRepository extends BaseRepository {
         dataAccess.saveNewMember(member);
 
     }
+
+
+    public void editLibraryMember(LibraryMember member) throws InvalidMemberException {
+
+        //Implement Code Here
+    }
+
 }

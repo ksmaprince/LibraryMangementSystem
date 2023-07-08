@@ -20,6 +20,8 @@ public interface DataAccess {
 
 	public void saveNewMember(LibraryMember member);
 
+	public void editMember(LibraryMember member);
+
 	public void saveNewBook(Book book);
 
 	public void updateBookHM(HashMap<String, Book> hmBooks);

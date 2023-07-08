@@ -98,21 +98,21 @@ public class TestData {
 	@SuppressWarnings("serial")
 	public List<Author> allAuthors = new ArrayList<Author>() {
 		{
-			add(new Author("A001", "JK", "Rowling", "999-999-9999", addresses.get(0), "Harry Potter"));
-			add(new Author("A002", "Dam", "Brown", "999-999-9999", addresses.get(0), "Inferno"));
+			add(new Author("A001", "George", "Orwell", "999-999-9999", addresses.get(0), "Burmese Days"));
+			add(new Author("A002", "Dan", "Brown", "999-999-9999", addresses.get(0), "Inferno"));
 			add(new Author("A003", "Kim", "Ji Won", "999-999-9999", addresses.get(1), "Duty After School"));
-			add(new Author("A004", "Michael", "Owen", "999-999-9999", addresses.get(2), "The Night Agent"));
-			add(new Author("A005", "Sung", "Hye Jo", "999-999-9999", addresses.get(3), "Weak Hero"));
+			add(new Author("A004", "Haruki", "Murakami", "999-999-9999", addresses.get(2), "Norwegian Wood"));
+			add(new Author("A005", "J.R.R", "Tolkien", "999-999-9999", addresses.get(3), "The Lord of the Rings"));
 		}
 	};
 
 	@SuppressWarnings("serial")
 	List<Book> allBooks = new ArrayList<Book>() {
 		{
-			add(new Book("23-11111", "Harry Potter", 21, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
+			add(new Book("23-11111", "Burmese Days", 21, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
 			add(new Book("28-12345", "Inferno", 7, Arrays.asList(allAuthors.get(2))));
-			add(new Book("99-22222", "Duty After School", 21, Arrays.asList(allAuthors.get(3))));
-			add(new Book("48-44444", "Weak Hero", 7, Arrays.asList(allAuthors.get(4))));
+			add(new Book("99-22222", "Norwegian Wood", 21, Arrays.asList(allAuthors.get(3))));
+			add(new Book("48-44444", "The Lord of the Rings", 7, Arrays.asList(allAuthors.get(4))));
 		}
 	};
 
