@@ -3,8 +3,10 @@ package librarysystem;
 import business.controller.ControllerFactory;
 import business.controller.ControllerType;
 import business.exception.InvalidMemberException;
-import business.model.Address;
-import business.model.LibraryMember;
+import business.usecase.ICheckMember;
+import business.usecase.IUpdateLibraryMember;
+import dataaccess.model.Address;
+import dataaccess.model.LibraryMember;
 import business.usecase.IAddLibraryMember;
 
 import javax.swing.*;
@@ -16,7 +18,7 @@ import java.awt.event.ActionListener;
 public class EditMemberWindow extends JFrame implements LibWindow {
 	private static final long serialVersionUID = 1L;
 	public static final EditMemberWindow INSTANCE = new EditMemberWindow();
-	IAddLibraryMember addLibraryMemberUseCase = ControllerFactory.getController(ControllerType.LibraryMember);
+	IUpdateLibraryMember addLibraryMemberUseCase = ControllerFactory.getController(ControllerType.LibraryMember);
 
 	private boolean isInitialized = false;
 
@@ -24,6 +26,9 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 	private JPanel topPanel = new JPanel();
 	private JPanel outerMiddel = new JPanel();
 	private JPanel lowerPanel;
+
+	private JTextField txtSearchMemberId;
+	private JButton btnSearch;
 
 	private JTextField txtMemberId;
 	private JTextField txtFirstName;
@@ -48,7 +53,8 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 
 	@Override
 	public void init() {
-		this.initializeComponent();setBounds(1, 1, 930, 657);
+		this.initializeComponent();
+        setBounds(1, 1, 930, 657);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setTitle("Library System");
@@ -66,7 +72,7 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 		this.mainPanel.add(this.outerMiddel, BorderLayout.CENTER);
 		//this.mainPanel.add(this.lowerPanel, BorderLayout.SOUTH);
 
-		
+
 		this.mainPanel.setBackground(new Color(174, 242, 250));
 		isInitialized = true;
 
@@ -74,8 +80,8 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 		this.mainPanel.setBounds(EXIT_ON_CLOSE, ABORT, WIDTH, HEIGHT);
 		this.mainPanel.setBounds(1, 1, 930, 657);
 		getContentPane().add(this.mainPanel);
-	
-		
+
+
 	}
 
 	@Override
@@ -85,6 +91,7 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 
 	private void initializeComponent() {
 		txtMemberId = new JTextField(20);
+		txtMemberId.setEditable(false);
 		txtFirstName = new JTextField(20);
 		txtLastName = new JTextField(20);
 		txtPhoneNumber = new JTextField(15);
@@ -101,6 +108,21 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 		lblCity = new JLabel("City");
 		lblZipCode = new JLabel("Zip Code");
 		lblState = new JLabel("State");
+
+
+        txtSearchMemberId = new JTextField(7);
+        btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (txtSearchMemberId.getText().isEmpty()){
+					JOptionPane.showMessageDialog(EditMemberWindow.this, "Please Enter Member ID.");
+				}else {
+					LibraryMember member = addLibraryMemberUseCase.searchMember(txtSearchMemberId.getText());
+					populateOldData(member);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -120,6 +142,12 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 	public void defineOuterMiddle() {
 		this.outerMiddel = new JPanel();
 		this.outerMiddel.setLayout(new BorderLayout());
+
+		JPanel searchPanel = new JPanel();
+		searchPanel.setLayout(new BorderLayout());
+		//searchPanel.setBackground(new Color(174, 242, 250));
+		searchPanel.add(txtSearchMemberId, BorderLayout.NORTH);
+		searchPanel.add(btnSearch, BorderLayout.CENTER);
 
 		JPanel middlePanel = new JPanel();
 		middlePanel.setBackground(new Color(174, 242, 250));
@@ -181,6 +209,7 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 
 		rightPanel.add(txtState);
 
+		middlePanel.add(searchPanel);
 		middlePanel.add(leftPanel);
 		middlePanel.add(rightPanel);
 
@@ -190,9 +219,9 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 		buttonPanel.setBackground(new Color(174, 242, 250));
 		buttonPanel.add(backToMainButn);
 
-		JButton btnAddMember = new JButton("ADD");
-		attachAddMemberButtonListener(btnAddMember);
-		buttonPanel.add(btnAddMember);
+		JButton btnEditMember = new JButton("UPDATE");
+		attachUpdateMemberButtonListener(btnEditMember);
+		buttonPanel.add(btnEditMember);
 
 		JButton btnClear = new JButton("CANCEL");
 		btnClear.addActionListener(e -> { clearInput();});
@@ -204,12 +233,13 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 
 	}
 
-	private void attachAddMemberButtonListener(JButton btn) {
+	private void attachUpdateMemberButtonListener(JButton btn) {
 		btn.addActionListener((evt) -> {
 			if (validateInput()) {
 				try {
-					addLibraryMemberUseCase.addLibraryMember(bindObject());
-					JOptionPane.showMessageDialog(this, "Member added successfully.");
+					addLibraryMemberUseCase.updateLibraryMember(bindObject());
+					JOptionPane.showMessageDialog(this, "Member updated successfully.");
+					clearInput();
 				} catch (InvalidMemberException e) {
 					JOptionPane.showMessageDialog(this, e.getMessage());
 					e.printStackTrace();
@@ -225,7 +255,19 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 		return member;
 	}
 
+	private void populateOldData(LibraryMember member){
+		txtMemberId.setText(member.getMemberId());
+		txtFirstName.setText(member.getFirstName());
+		txtLastName.setText(member.getLastName());
+		txtPhoneNumber.setText(member.getTelephone());
+		txtStreet.setText(member.getAddress().getStreet());
+		txtCity.setText(member.getAddress().getCity());
+		txtState.setText(member.getAddress().getState());
+		txtZipCode.setText(member.getAddress().getZip());
+	}
+
 	private void clearInput() {
+		txtSearchMemberId.setText("");
 		txtStreet.setText("");
 		txtCity.setText("");
 		txtState.setText("");
@@ -266,11 +308,11 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 		lowerPanel = new JPanel();
 		lowerPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		lowerPanel.add(backToMainButn);
-		
-		JButton btnAddMember = new JButton("ADD");
-		attachAddMemberButtonListener(btnAddMember);
-		lowerPanel.add(btnAddMember);
-		
+
+		JButton btnUpdateMember = new JButton("UPDATE");
+		attachUpdateMemberButtonListener(btnUpdateMember);
+		lowerPanel.add(btnUpdateMember);
+
 		JButton btnClear = new JButton("CANCEL");
 		btnClear.addActionListener(e -> { clearInput();});
 		lowerPanel.add(btnClear);
@@ -287,6 +329,7 @@ public class EditMemberWindow extends JFrame implements LibWindow {
 		public void actionPerformed(ActionEvent evt) {
 			UIController.hideAllWindows();
 			MainView.INSTANCE.setVisible(true);
+			clearInput();
 		}
 	}
 

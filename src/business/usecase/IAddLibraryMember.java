@@ -1,6 +1,6 @@
 package business.usecase;
 
-import business.model.LibraryMember;
+import dataaccess.model.LibraryMember;
 import business.exception.InvalidMemberException;
 
 public interface IAddLibraryMember {

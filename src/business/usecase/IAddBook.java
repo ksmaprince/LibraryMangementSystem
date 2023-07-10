@@ -1,6 +1,6 @@
 package business.usecase;
 
-import business.model.Book;
+import dataaccess.model.Book;
 
 public interface IAddBook {
 	public void addBook(Book book);

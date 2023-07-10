@@ -5,11 +5,10 @@ import java.util.List;
 import business.exception.BookNotFoundException;
 import business.usecase.*;
 import dataaccess.*;
-import business.model.*;
+import dataaccess.model.*;
 import dataaccess.repository.child.BookRepository;
 
 public class BookController extends BaseController implements ISearchBook, IAddBook, IBookCopy {
-
 	BookController() {
 	}
 

@@ -1,9 +1,9 @@
 package dataaccess.repository.child;
 
-import business.model.BookCopy;
-import business.model.CheckOutRecord;
-import business.model.CheckOutRecordEntry;
-import business.model.LibraryMember;
+import dataaccess.model.BookCopy;
+import dataaccess.model.CheckOutRecord;
+import dataaccess.model.CheckOutRecordEntry;
+import dataaccess.model.LibraryMember;
 import dataaccess.DataAccess;
 import dataaccess.repository.BaseRepository;
 

@@ -1,35 +1,22 @@
 package librarysystem;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
+import business.controller.ControllerFactory;
 import business.controller.ControllerType;
 import business.usecase.IAddBook;
-import business.usecase.IGetAuthor;
+import business.usecase.IAuthor;
 import business.usecase.ISearchBook;
-import business.controller.ControllerFactory;
-import business.model.Author;
-import business.model.Book;
-import business.model.BookCopy;
+import dataaccess.model.Author;
+import dataaccess.model.Book;
+import dataaccess.model.BookCopy;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookWindow extends JFrame implements LibWindow {
 	public static final BookWindow INSTANCE = new BookWindow();
@@ -46,7 +33,10 @@ public class BookWindow extends JFrame implements LibWindow {
 	private JTextField txtISBN, txtTitle, txtNoOfCopy;
 
 	private List<JCheckBox> jCheckBoxs = new ArrayList<>();
+
+	private JButton btnOtherAuthor;
 	private JComboBox<Integer> cmbMaxCheckOutLength;
+
 	private JScrollPane jScrollPane;
 	JTable jt;
 	DefaultTableModel jtmodel = new DefaultTableModel();
@@ -80,6 +70,8 @@ public class BookWindow extends JFrame implements LibWindow {
          
 		isInitialized(true);
 		m_authors = getAllAuthors();
+
+		attachAddAuthorListener(btnOtherAuthor);
 	}
 
 	private JScrollPane initializeTable() {
@@ -96,12 +88,12 @@ public class BookWindow extends JFrame implements LibWindow {
 		jt = new JTable(jtmodel);
 
 		jt.getColumnModel().getColumn(0).setPreferredWidth(20);
-		jt.getColumnModel().getColumn(1).setPreferredWidth(27);
-		jt.getColumnModel().getColumn(3).setPreferredWidth(70);
-		jt.getColumnModel().getColumn(3).setPreferredWidth(22);
+		jt.getColumnModel().getColumn(1).setPreferredWidth(20);
+		jt.getColumnModel().getColumn(3).setPreferredWidth(80);
+		jt.getColumnModel().getColumn(3).setPreferredWidth(20);
 		JScrollPane sp = new JScrollPane(jt);
 		// sp.setBounds(310, 20, 375, 340);
-		sp.setBounds(20, 200, 800, 150);
+		sp.setBounds(20, 375, 800, 150);
 
 		// load books
 		List<Book> data = searchBookUseCase.getBookCollection();
@@ -136,7 +128,7 @@ public class BookWindow extends JFrame implements LibWindow {
 	}
 
 	public List<Author> getAllAuthors() {
-		IGetAuthor ac = ControllerFactory.getController(ControllerType.Author);
+		IAuthor ac = ControllerFactory.getController(ControllerType.Author);
 		List<Author> authors = ac.getAllAuthors();
 		return authors;
 	}
@@ -168,6 +160,7 @@ public class BookWindow extends JFrame implements LibWindow {
 		JLabel lblISBN = new JLabel("ISBN");
 		JLabel lblTitle = new JLabel("Title");
 		JLabel lblAuthors = new JLabel("Authors");
+		JLabel lblAuthors1 = new JLabel("Authors");
 		JLabel lblMaxCheckOutLength = new JLabel("Maximum Checkout Length");
 		JLabel lblNumberOfCopies = new JLabel("Book Copies");
 
@@ -180,14 +173,15 @@ public class BookWindow extends JFrame implements LibWindow {
 		cmbMaxCheckOutLength.addItem(7);
 
 		leftPanel.add(lblISBN);
-		leftPanel.add(Box.createRigidArea(new Dimension(0, 12)));
+		leftPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 		leftPanel.add(lblTitle);
-		leftPanel.add(Box.createRigidArea(new Dimension(0, 12)));
+		leftPanel.add(Box.createRigidArea(new Dimension(0, 80)));
 		leftPanel.add(lblAuthors);
-		leftPanel.add(Box.createRigidArea(new Dimension(0, 12)));
+		leftPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 		leftPanel.add(lblMaxCheckOutLength);
-		leftPanel.add(Box.createRigidArea(new Dimension(0, 12)));
+		leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		leftPanel.add(lblNumberOfCopies);
+		leftPanel.add(Box.createRigidArea(new Dimension(0, 50)));
 
 		// TextField, JList, JCombo
 		rightPanel.add(this.txtISBN);
@@ -200,18 +194,25 @@ public class BookWindow extends JFrame implements LibWindow {
 		List<Author> authors = getAllAuthors();
 		JPanel p = new JPanel();
 		p.setBackground(new Color(174, 242, 250));
+		p.setLayout(new GridLayout(3, 5));
+
+		btnOtherAuthor = new JButton("Add Author");
 
 		authors.forEach(author -> {
 			JCheckBox box = new JCheckBox(author.getFullName());
 			jCheckBoxs.add(box);
 			p.add(box);
 		});
+		p.add(btnOtherAuthor);
 		rightPanel.add(p);
+		//rightPanel.add(authorJComboBox);
 
-		rightPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+
+
+		rightPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 		rightPanel.add(this.cmbMaxCheckOutLength);
 
-		rightPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+		rightPanel.add(Box.createRigidArea(new Dimension(0, 6)));
 		rightPanel.add(this.txtNoOfCopy);
 
 		middlePanel.add(leftPanel);
@@ -231,10 +232,14 @@ public class BookWindow extends JFrame implements LibWindow {
 		buttonPanel.add(btnAddBook);
 
 		buttonPanel.setBackground(new Color(174, 242, 250));
-		this.outerMiddle.add(buttonPanel, "Center");
+
+		rightPanel.add(buttonPanel);
+		//this.outerMiddle.add(buttonPanel, "Center");
 		jScrollPane = initializeTable();
 
 		this.outerMiddle.add(jScrollPane, "South");
+
+
 	}
 
 	private void addBackButtonListener(JButton butn) {
@@ -275,7 +280,6 @@ public class BookWindow extends JFrame implements LibWindow {
 								}
 							}
 						}
-
 					});
 
 					for (Author model : selectedAuthors) {
@@ -331,11 +335,20 @@ public class BookWindow extends JFrame implements LibWindow {
 				}
 
 			}
-
 		});
 	}
 
-	public void updateData() {
+	public void attachAddAuthorListener(JButton btn){
+		btn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UIController.hideAllWindows();
+				AddAuthorWindow.INSTANCE.init();
+				AddAuthorWindow.INSTANCE.pack();
+				Util.centerFrameOnDesktop(AddAuthorWindow.INSTANCE);
+				AddAuthorWindow.INSTANCE.setVisible(true);
+			}
+		});
 	}
 
 	@Override

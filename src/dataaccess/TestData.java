@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import business.model.*;
+import dataaccess.model.*;
 
 /**
  * This class loads data into the data repository and also sets up the dataaccess.storage
@@ -103,6 +103,7 @@ public class TestData {
 			add(new Author("A003", "Kim", "Ji Won", "999-999-9999", addresses.get(1), "Duty After School"));
 			add(new Author("A004", "Haruki", "Murakami", "999-999-9999", addresses.get(2), "Norwegian Wood"));
 			add(new Author("A005", "J.R.R", "Tolkien", "999-999-9999", addresses.get(3), "The Lord of the Rings"));
+		//	add(new Author("A006", "P.Q.R", "Kim Jone", "999-999-9999", addresses.get(1), "The Sun set"));
 		}
 	};
 
@@ -112,7 +113,7 @@ public class TestData {
 			add(new Book("23-11111", "Burmese Days", 21, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
 			add(new Book("28-12345", "Inferno", 7, Arrays.asList(allAuthors.get(2))));
 			add(new Book("99-22222", "Norwegian Wood", 21, Arrays.asList(allAuthors.get(3))));
-			add(new Book("48-44444", "The Lord of the Rings", 7, Arrays.asList(allAuthors.get(4))));
+			add(new Book("48-44444", "The Lord of the Rings", 7, Arrays.asList(allAuthors.get(1))));
 		}
 	};
 

@@ -6,11 +6,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import business.controller.ControllerType;
+import business.exception.InvalidMemberException;
 import business.usecase.ICheckOutBook;
 import business.controller.ControllerFactory;
-import business.model.BookCopy;
-import business.model.CheckOutRecord;
-import business.model.CheckOutRecordEntry;
+import dataaccess.model.BookCopy;
+import dataaccess.model.CheckOutRecord;
+import dataaccess.model.CheckOutRecordEntry;
 import business.exception.BookCopyNotAvailableException;
 import business.exception.BookNotFoundException;
 import business.exception.MemberNotFoundException;
@@ -136,6 +137,8 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
 					displayCheckoutInfo();
 				} catch (BookNotFoundException | MemberNotFoundException | BookCopyNotAvailableException e) {
 					JOptionPane.showMessageDialog(this, e.getMessage(), "Check out book", JOptionPane.ERROR_MESSAGE);
+				} catch (InvalidMemberException e) {
+					throw new RuntimeException(e);
 				}
 			}
 		});

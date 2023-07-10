@@ -29,13 +29,15 @@ public class MainView extends JFrame  implements LibWindow{
 	JMenu mnNewMenu_1,mnNewMenu_2;
 	
 	JMenuItem logout, addLibraryMember, checkOutBook, addBookCopy, addBook,
-	printCheckOutRecord, editMember;
+	printCheckOutRecord, editMember, addAuthor;
 	
 	private static LibWindow[] allWindows = { 
 			UIController.INSTANCE,
 			AddMemberWindow.INSTANCE, 
 			BookWindow.INSTANCE, 
 			BookCopyWindow.INSTANCE,
+			EditMemberWindow.INSTANCE,
+			AddAuthorWindow.INSTANCE,
 			CheckoutBookWindow.INSTANCE,
 			PrintCheckOutRecordWindow.INSTANCE,
 			MainView.INSTANCE,
@@ -115,14 +117,18 @@ public class MainView extends JFrame  implements LibWindow{
 		editMember = new JMenuItem("Edit Member");
 		editMember.addActionListener(new EditMemberListener());
 		mnNewMenu_2.add(editMember);
+
+		addBook = new JMenuItem("Add Book");
+		addBook.addActionListener(new AddBookListener());
+		mnNewMenu_2.add(addBook);
 		
 		addBookCopy = new JMenuItem("Add Book Copy");
 		addBookCopy.addActionListener(new AddBookCopyListener());
 		mnNewMenu_2.add(addBookCopy);
 		
-		addBook = new JMenuItem("Add Book");
-		addBook.addActionListener(new AddBookListener());
-		mnNewMenu_2.add(addBook);
+		addAuthor = new JMenuItem("Add Author");
+		addAuthor.addActionListener(new AddAuthorListener());
+		mnNewMenu_2.add(addAuthor);
 	}
 	
 	public static void hideAllWindows() {
@@ -237,6 +243,18 @@ public class MainView extends JFrame  implements LibWindow{
 			BookWindow.INSTANCE.pack();
 			Util.centerFrameOnDesktop(BookWindow.INSTANCE);
 			BookWindow.INSTANCE.setVisible(true);
+		}
+
+	}
+
+	class AddAuthorListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UIController.hideAllWindows();
+			AddAuthorWindow.INSTANCE.init();
+			AddAuthorWindow.INSTANCE.pack();
+			Util.centerFrameOnDesktop(AddAuthorWindow.INSTANCE);
+			AddAuthorWindow.INSTANCE.setVisible(true);
 		}
 
 	}

@@ -18,11 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import business.controller.ControllerType;
-import business.model.Book;
 import business.usecase.IAddLibraryMember;
 import business.controller.ControllerFactory;
-import business.model.Address;
-import business.model.LibraryMember;
+import dataaccess.model.Address;
+import dataaccess.model.LibraryMember;
 import business.exception.InvalidMemberException;
 
 public class AddMemberWindow extends JFrame implements LibWindow {
@@ -90,7 +89,6 @@ public class AddMemberWindow extends JFrame implements LibWindow {
 		
 	}
 
-	@Override
 	public boolean isInitialized() {
 		return isInitialized;
 	}
@@ -115,7 +113,6 @@ public class AddMemberWindow extends JFrame implements LibWindow {
 		lblState = new JLabel("State");
 	}
 
-	@Override
 	public void isInitialized(boolean val) {
 		isInitialized = val;
 	}

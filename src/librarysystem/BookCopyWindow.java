@@ -13,8 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 import business.controller.ControllerType;
 import business.controller.ControllerFactory;
-import business.model.Author;
-import business.model.Book;
+import dataaccess.model.Author;
+import dataaccess.model.Book;
 import business.exception.BookNotFoundException;
 import business.usecase.IBookCopy;
 

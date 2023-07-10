@@ -9,7 +9,7 @@ public class ControllerFactory {
 			case Login:
 				return (T) new LoginController();
 			case Author:
-				return (T) new GetAuthorController();
+				return (T) new AuthorController();
 			case Book:
 				return (T) new BookController();
 			case CheckOutBook:

@@ -1,10 +1,11 @@
 package business.controller;
 
+import business.exception.InvalidMemberException;
 import business.usecase.ICheckOutBook;
 import dataaccess.DataAccessFacade;
-import business.model.Book;
-import business.model.CheckOutRecord;
-import business.model.LibraryMember;
+import dataaccess.model.Book;
+import dataaccess.model.CheckOutRecord;
+import dataaccess.model.LibraryMember;
 import business.exception.BookCopyNotAvailableException;
 import business.exception.BookNotFoundException;
 import business.exception.MemberNotFoundException;
@@ -17,7 +18,7 @@ public class CheckOutBookController extends BaseController implements ICheckOutB
 
 	@Override
 	public void checkOutBook(String memberId, String bookId)
-			throws BookNotFoundException, MemberNotFoundException, BookCopyNotAvailableException {
+			throws BookNotFoundException, MemberNotFoundException, BookCopyNotAvailableException, InvalidMemberException {
 
 		BookRepository bookRepo = new BookRepository(new DataAccessFacade());
 		LibraryMemberRepository libmemRepo = new LibraryMemberRepository(new DataAccessFacade());

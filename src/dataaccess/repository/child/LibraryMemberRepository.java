@@ -1,7 +1,7 @@
 package dataaccess.repository.child;
 
 import business.exception.InvalidMemberException;
-import business.model.LibraryMember;
+import dataaccess.model.LibraryMember;
 import dataaccess.DataAccess;
 import dataaccess.repository.BaseRepository;
 
@@ -13,7 +13,7 @@ public class LibraryMemberRepository extends BaseRepository {
         this.dataAccess = da;
     }
 
-    public boolean checkMember(String memberId) {
+    public boolean checkMember(String memberId) throws InvalidMemberException{
         if (getMember(memberId) != null)
             return true;
 
@@ -50,6 +50,29 @@ public class LibraryMemberRepository extends BaseRepository {
         }
 
         dataAccess.saveNewMember(member);
+
+    }
+
+    public void updateLibraryMember(LibraryMember member) throws InvalidMemberException {
+
+
+        if (member == null) {
+            throw new InvalidMemberException("Member is null");
+        }
+
+        if (member.getMemberId().isEmpty()) {
+            throw new InvalidMemberException("Invalid Member Id");
+        }
+
+        if (member.getFirstName().isEmpty()) {
+            throw new InvalidMemberException("Invalid First Name");
+        }
+
+        if (member.getLastName().isEmpty()) {
+            throw new InvalidMemberException("Invalid Last Name");
+        }
+
+        dataAccess.updateMember(member);
 
     }
 

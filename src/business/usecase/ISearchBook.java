@@ -2,7 +2,7 @@ package business.usecase;
 
 import java.util.List;
 
-import business.model.Book;
+import dataaccess.model.Book;
 
 public interface ISearchBook {
 	public Book searchBook(String isbn);

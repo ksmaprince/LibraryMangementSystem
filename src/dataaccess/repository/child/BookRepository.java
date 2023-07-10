@@ -2,7 +2,7 @@ package dataaccess.repository.child;
 
 import business.exception.BookCopyNotAvailableException;
 import business.exception.BookNotFoundException;
-import business.model.*;
+import dataaccess.model.*;
 import dataaccess.DataAccess;
 import dataaccess.repository.BaseRepository;
 

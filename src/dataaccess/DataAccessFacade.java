@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import business.model.Author;
-import business.model.Book;
-import business.model.CheckOutRecord;
-import business.model.LibraryMember;
+import dataaccess.model.*;
 
 public class DataAccessFacade implements DataAccess {
 
@@ -62,14 +59,23 @@ public class DataAccessFacade implements DataAccess {
 	}
 
 	@Override
-	public void editMember(LibraryMember member) {
-		//Implement Code Here
+	public void updateMember(LibraryMember member) {
+		HashMap<String, LibraryMember> mems = readMemberMap();
+		String memberId = member.getMemberId();
+		mems.put(memberId, member);
+		saveToStorage(StorageType.MEMBERS, mems);
 	}
 
 	public void saveNewBook(Book book) {
 		HashMap<String, Book> books = readBooksMap();
 		books.put(book.getIsbn(), book);
 		saveToStorage(StorageType.BOOKS, books);
+	}
+
+	public void saveAuthor(Author author) {
+		HashMap<String, Author> authorHashMap = readAuthorMap();
+		authorHashMap.put(author.getAuthorId(), author);
+		saveToStorage(StorageType.AUTHORS, authorHashMap);
 	}
 
 	public void updateBookHM(HashMap<String, Book> hmBooks) {

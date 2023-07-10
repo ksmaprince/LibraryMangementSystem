@@ -2,10 +2,7 @@ package dataaccess;
 
 import java.util.HashMap;
 
-import business.model.Author;
-import business.model.Book;
-import business.model.CheckOutRecord;
-import business.model.LibraryMember;
+import dataaccess.model.*;
 
 public interface DataAccess {
 	public HashMap<String, Book> readBooksMap(); 
@@ -20,9 +17,11 @@ public interface DataAccess {
 
 	public void saveNewMember(LibraryMember member);
 
-	public void editMember(LibraryMember member);
+	public void updateMember(LibraryMember member);
 
 	public void saveNewBook(Book book);
+
+	public void saveAuthor(Author author);
 
 	public void updateBookHM(HashMap<String, Book> hmBooks);
 

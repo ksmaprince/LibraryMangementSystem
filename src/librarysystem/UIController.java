@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 
 import dataaccess.Auth;
 
+import java.awt.*;
+
 public class UIController extends JFrame implements LibWindow {
 
 	public final static UIController INSTANCE = new UIController();
@@ -17,6 +19,8 @@ public class UIController extends JFrame implements LibWindow {
 			BookCopyWindow.INSTANCE,
 			CheckoutBookWindow.INSTANCE,
 			PrintCheckOutRecordWindow.INSTANCE,
+			AddAuthorWindow.INSTANCE,
+			EditMemberWindow.INSTANCE,
 			MainView.INSTANCE,
 			MainLogin.INSTANCE};
 
@@ -24,7 +28,6 @@ public class UIController extends JFrame implements LibWindow {
 
 		for (LibWindow frame : allWindows) {
 			frame.setVisible(false);
-
 		}
 	}
 

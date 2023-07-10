@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import business.usecase.*;
 import business.controller.*;
-import business.model.*;
+import dataaccess.model.*;
 
 
 public class PrintCheckOutRecordWindow extends JFrame implements LibWindow {

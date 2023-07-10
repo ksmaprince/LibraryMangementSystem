@@ -1,6 +1,6 @@
 package business.usecase;
 
-import business.model.Book;
+import dataaccess.model.Book;
 import business.exception.BookNotFoundException;
 
 public interface IBookCopy {
